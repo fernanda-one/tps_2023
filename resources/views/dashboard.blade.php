@@ -1,4 +1,4 @@
-@extends('layouts.sidebar')
+@extends('layouts.template')
 @section('title', 'Dashboard')
 @section('judul1', 'Home')
 @section('judul2', 'Dashboard')

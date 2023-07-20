@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +21,4 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/users', [UserController::class, 'users']);
