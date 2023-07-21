@@ -1,0 +1,19 @@
+/* Replace the font-family name with the correct font name from the downloaded files */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Example of using the font on a specific element */
+.poppins-font {
+    font-family: 'Poppins', sans-serif;
+}
