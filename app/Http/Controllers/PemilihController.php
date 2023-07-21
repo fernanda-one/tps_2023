@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PemilihController extends Controller
 {
+    public function pemilih() {
+        return view('pemilih');
+    }
+
     /**
      * Display a listing of the resource.
      *
