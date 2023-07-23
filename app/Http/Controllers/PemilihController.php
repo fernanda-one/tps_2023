@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class PemilihController extends Controller
 {
-    public function pemilih() {
-        return view('pemilih');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +14,7 @@ class PemilihController extends Controller
      */
     public function index()
     {
-        //
+        return view('pemilih');
     }
 
     /**
@@ -39,7 +35,37 @@ class PemilihController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nik' => 'required|integer|max:11',
+            'alamat' => 'required|string',
+            'rt' => 'required|integer|max:11',
+            'rw' => 'required|integer|max:11',
+            'lokasi_tps' => 'required|string',
+            'kelurahan' => 'required|string',
+            'kecamatan' => 'required|string',
+            'keterangan' => 'required|string',
+            'phone_number' => 'required|integer|max:12',
+        ]);
+
+        $pemilih = new Pemilih([
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'phone_number' => $request->phone_number,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
+            'lokasi_tps' => $request->lokasi_tps,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        if ($pemilih->save()) {
+            return redirect('/pemilih')->with(['success' => 'add new voter successfully']);
+        } else {
+            return redirect('/pemilih')->with(['error' => 'Failed to add new voter']);
+        }
     }
 
     /**
