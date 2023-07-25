@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
-    public function users() {
-        return view('users');
-    }
     public function index()
     {
-        $users = User::all();
-
-//        return view('users.index', compact('users'));
-        return response()->json($users);
+        return view('users', [
+                'data'=> User::paginate(10)
+        ]);
     }
 
     public function create()
@@ -22,28 +22,19 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
+        $validatedData = $request->validate([
+            'name' => 'required|string|min:3',
+            'username' => 'required|string|max:255|min:3|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'img_url' => 'nullable|string',
-            'password' => 'required|string|min:6',
-            'salt' => 'nullable|string',
-            'status' => 'nullable|string',
-            'role_id' => 'required|integer',
+            'password' => 'required|string|min:6|max:255',
+            'role_id'=>'required|integer'
         ]);
 
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'img_url' => $request->img_url,
-            'password' => bcrypt($request->password),
-            'salt' => $request->salt,
-            'status' => $request->status,
-            'role_id' => $request->role_id,
-        ]);
-        $user->save();
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        User::create($validatedData);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect('/users')->with('success', 'User created successfully.');
     }
 
     public function show($id)
@@ -53,7 +44,7 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function edit($id)
+     public function edit($id)
     {
         $user = User::findOrFail($id);
 

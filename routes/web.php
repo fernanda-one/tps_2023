@@ -25,7 +25,8 @@ Route::post('/login',[AuthController::class, 'auth']);
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
-Route::get('/users', [UserController::class, 'users']);
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/createUser',[UserController::class,'store']);
 
 Route::get('/pemilih', [PemilihController::class, 'index']);
 Route::post('/pemilih-tambah', [PemilihController::class, 'store']);
