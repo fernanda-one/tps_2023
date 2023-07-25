@@ -7,19 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pemilih extends Model
 {
     protected $table = 'pemilih';
-    protected $fillable = [
-        'name',
-        'phone_number',
-        'nik',
-        'alamat',
-        'rt',
-        'rw',
-        'kelurahan',
-        'kecamatan',
-        'lokasi_tps',
-        'keterangan',
-        'status',
-        'created_by',
+    protected $guarded = [
+        'id'
     ];
 
     public function createdByUser()

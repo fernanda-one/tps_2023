@@ -14,7 +14,22 @@ class PemilihController extends Controller
      */
     public function index()
     {
-        return view('pemilih');
+        $pemilih = Pemilih::latest();
+        $search = \request('search') ?? '';
+        if ($search != "") {
+            $pemilih->where('name', 'like', '%' . $search . '%')
+                ->orWhere('nik', 'like', '%' . $search . '%')
+                ->orWhere('alamat', 'like', '%' . $search . '%')
+                ->orWhere('phone_number', 'like', '%' . $search . '%')
+                ->orWhere('kelurahan', 'like', '%' . $search . '%')
+                ->orWhere('kecamatan', 'like', '%' . $search . '%')
+                ->orWhere('lokasi_tps', 'like', '%' . $search . '%')
+                ->orWhere('keterangan', 'like', '%' . $search . '%');
+        }
+
+        return view('pemilih', [
+            'voters' => $pemilih->paginate(6)
+        ]);
     }
 
     /**
@@ -35,17 +50,18 @@ class PemilihController extends Controller
      */
     public function store(Request $request)
     {
+        intval($request['rt']);
         $request->validate([
-            'name' => 'required|string|max:255',
-            'nik' => 'required|integer|max:11',
-            'alamat' => 'required|string',
-            'rt' => 'required|integer|max:11',
-            'rw' => 'required|integer|max:11',
-            'lokasi_tps' => 'required|string',
-            'kelurahan' => 'required|string',
-            'kecamatan' => 'required|string',
-            'keterangan' => 'required|string',
-            'phone_number' => 'required|integer|max:12',
+            'name' => 'required|max:255',
+            'nik' => 'required|max:17',
+            'alamat' => 'required|max:255',
+            'rt' => 'required|max:10',
+            'rw' => 'required|max:10',
+            'lokasi_tps' => 'required|string|max:255',
+            'kelurahan' => 'required|max:255',
+            'kecamatan' => 'required|max:255',
+            'phone_number' => 'required|max:15',
+            'keterangan' => 'required|max:255',
         ]);
 
         $pemilih = new Pemilih([
@@ -74,7 +90,7 @@ class PemilihController extends Controller
      * @param  \App\Models\Pemilih  $pemilih
      * @return \Illuminate\Http\Response
      */
-    public function show(Pemilih $pemilih)
+    public function show($id)
     {
         //
     }
@@ -85,9 +101,16 @@ class PemilihController extends Controller
      * @param  \App\Models\Pemilih  $pemilih
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pemilih $pemilih)
+    public function edit($id)
     {
-        //
+        try {
+            $pemilih = Pemilih::findOrFail($id);
+            return view('pemilih', [
+                'voters_one' => $pemilih
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect('/pemilih')->with(['error' => 'Data not found']);
+        }
     }
 
     /**
@@ -110,6 +133,6 @@ class PemilihController extends Controller
      */
     public function destroy(Pemilih $pemilih)
     {
-        //
+
     }
 }

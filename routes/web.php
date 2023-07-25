@@ -28,4 +28,5 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 Route::get('/users', [UserController::class, 'users']);
 
 Route::get('/pemilih', [PemilihController::class, 'index']);
-Route::post('/pemilih', [PemilihController::class, 'store']);
+Route::post('/pemilih-tambah', [PemilihController::class, 'store']);
+Route::post('/pemilih-edit/{id}', [PemilihController::class, 'edit']);
