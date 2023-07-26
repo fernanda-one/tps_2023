@@ -9,6 +9,7 @@
     <!-- Replace the font paths according to your file names and folder structure -->
     <link rel="stylesheet" href="{{ asset('fonts/Poppins-Regular.ttf') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('fonts/Poppins-Bold.ttf') }}" type="text/css">
+    <link rel="icon" href="assets/LOGO_KPU_RI.png">
 
     <style>
         body {
