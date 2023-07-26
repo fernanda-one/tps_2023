@@ -18,10 +18,9 @@ class AuthController extends Controller
         ]);
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            dd(session());
             return redirect()->intended('/dashboard');
         }
-//        return back()->with('loginError', 'Login failed!');
+        return back()->with('loginError', 'Login failed!');
     }
 
     public function logout()
@@ -32,6 +31,6 @@ class AuthController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -11,7 +14,8 @@ class UserController extends Controller
     public function index()
     {
         return view('users', [
-                'data'=> User::paginate(10)
+            'data'=> Users::paginate(10),
+            'data_role'=> Role::all()
         ]);
     }
 
@@ -32,55 +36,50 @@ class UserController extends Controller
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
-        User::create($validatedData);
+        Users::create($validatedData);
 
         return redirect('/users')->with('success', 'User created successfully.');
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
 
         return view('users.show', compact('user'));
     }
 
      public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
 
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'img_url' => 'nullable|string',
-            'password' => 'nullable|string|min:6',
-            'salt' => 'nullable|string',
-            'status' => 'nullable|string',
-            'role_id' => 'required|integer',
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
+            'password_confirmation' => 'nullable|string|min:6',
+            'role_id' => 'nullable|integer',
         ]);
-
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->img_url = $request->img_url;
-        if ($request->password) {
-            $user->password = bcrypt($request->password);
+        $user = Users::findOrFail($id);
+        if ($validatedData['password'] !== null)
+        {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }else{
+            Arr::forget($validatedData, 'password');
         }
-        $user->salt = $request->salt;
-        $user->status = $request->status;
-        $user->role_id = $request->role_id;
-        $user->save();
+        $user->update($validatedData);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect('/users')->with('success', 'User updated successfully.');
     }
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');

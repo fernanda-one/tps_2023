@@ -22,11 +22,13 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/login',[AuthController::class, 'auth']);
+Route::get('/logout',[AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
 Route::get('/users', [UserController::class, 'index']);
-Route::post('/createUser',[UserController::class,'store']);
+Route::post('/create-user',[UserController::class,'store']);
+Route::put('/edit-user/{id}',[UserController::class,'update']);
 
 Route::get('/pemilih', [PemilihController::class, 'index']);
 Route::post('/pemilih-tambah', [PemilihController::class, 'store']);
