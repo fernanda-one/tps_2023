@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemilih;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PemilihController extends Controller
 {
@@ -14,6 +15,7 @@ class PemilihController extends Controller
      */
     public function index()
     {
+        $this->authorize('superadmin');
         $pemilih = Pemilih::latest();
         $search = \request('search') ?? '';
         if ($search != "") {
@@ -32,24 +34,9 @@ class PemilihController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->authorize('superadmin');
         $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:17',
@@ -74,6 +61,8 @@ class PemilihController extends Controller
             'kecamatan' => $request->kecamatan,
             'lokasi_tps' => $request->lokasi_tps,
             'keterangan' => $request->keterangan,
+            'status' => 'pending',
+            'created_by' => Auth::user()->getAuthIdentifier()
         ]);
 
         if ($pemilih->save()) {
@@ -83,25 +72,9 @@ class PemilihController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pemilih  $pemilih
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pemilih  $pemilih
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Request $request, $id)
     {
+        $this->authorize('superadmin');
         $pemilih = Pemilih::findOrFail($id);
         if ($pemilih) {
             $request->validate([
@@ -126,28 +99,5 @@ class PemilihController extends Controller
         } else {
             return redirect('/pemilih')->with(['error' => 'Data not found']);
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pemilih  $pemilih
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pemilih $pemilih)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pemilih  $pemilih
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pemilih $pemilih)
-    {
-
     }
 }
