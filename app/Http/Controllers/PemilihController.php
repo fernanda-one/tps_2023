@@ -50,7 +50,6 @@ class PemilihController extends Controller
      */
     public function store(Request $request)
     {
-        intval($request['rt']);
         $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:17',
@@ -101,14 +100,30 @@ class PemilihController extends Controller
      * @param  \App\Models\Pemilih  $pemilih
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        try {
-            $pemilih = Pemilih::findOrFail($id);
-            return view('pemilih', [
-                'voters_one' => $pemilih
+        $pemilih = Pemilih::findOrFail($id);
+        if ($pemilih) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'nik' => 'required|max:17',
+                'alamat' => 'required|max:255',
+                'rt' => 'required|max:10',
+                'rw' => 'required|max:10',
+                'lokasi_tps' => 'required|string|max:255',
+                'kelurahan' => 'required|max:255',
+                'kecamatan' => 'required|max:255',
+                'phone_number' => 'required|max:15',
+                'keterangan' => 'required|max:255',
             ]);
-        } catch (ModelNotFoundException $e) {
+
+            $pemilih->update($request->all());
+            if ($pemilih) {
+                return redirect('/pemilih')->with(['success' => 'Update new voter successfully']);
+            } else {
+                return redirect('/pemilih')->with(['error' => 'Failed to update voter']);
+            }
+        } else {
             return redirect('/pemilih')->with(['error' => 'Data not found']);
         }
     }

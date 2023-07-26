@@ -7,7 +7,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $pemilih = Pemilih::latest()->where('status', 'false');
+        $pemilih = Pemilih::latest()->where('status', 'pending');
         $search = \request('search') ?? '';
         if ($search != "") {
             $pemilih->where('name', 'like', '%' . $search . '%')

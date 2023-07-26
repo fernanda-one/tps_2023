@@ -32,4 +32,4 @@ Route::put('/edit-user/{id}',[UserController::class,'update']);
 
 Route::get('/pemilih', [PemilihController::class, 'index']);
 Route::post('/pemilih-tambah', [PemilihController::class, 'store']);
-Route::post('/pemilih-edit/{id}', [PemilihController::class, 'edit']);
+Route::put('/pemilih-edit/{id}', [PemilihController::class, 'edit']);
