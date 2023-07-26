@@ -274,8 +274,6 @@
                     </svg>
                 </button>
             @endif
-
-
         </div>
     </div>
 @endsection
