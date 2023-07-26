@@ -20,17 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login',[AuthController::class, 'auth']);
 Route::get('/logout',[AuthController::class, 'logout']);
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
 Route::get('/dashboard-edit/{id}', [DashboardController::class, 'updateStatus']);
 
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/create-user',[UserController::class,'store']);
-Route::put('/edit-user/{id}',[UserController::class,'update']);
+Route::get('/users', [UserController::class, 'index'])->middleware('auth');
+Route::post('/create-user',[UserController::class,'store'])->middleware('auth');
+Route::put('/edit-user/{id}',[UserController::class,'update'])->middleware('auth');
+Route::delete('/users/delete/{id}',[UserController::class,'destroy'])->middleware('auth');
 
-Route::get('/pemilih', [PemilihController::class, 'index']);
-Route::post('/pemilih-tambah', [PemilihController::class, 'store']);
-Route::put('/pemilih-edit/{id}', [PemilihController::class, 'edit']);
+Route::get('/pemilih', [PemilihController::class, 'index'])->middleware('auth');
+Route::post('/pemilih-tambah', [PemilihController::class, 'store'])->middleware('auth');
+Route::post('/pemilih-edit/{id}', [PemilihController::class, 'edit'])->middleware('auth');

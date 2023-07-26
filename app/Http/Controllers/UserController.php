@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Users;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
     public function index()
     {
+        $this->authorize('superadmin');
+        $user = Users::latest();
+        $search = \request('search') ?? '';
+        if ($search != ''){
+            $user->where('name','like', $search)
+                ->orWhere('username','like', $search)
+                ->orWhere('email','like',$search);
+        }
         return view('users', [
-            'data'=> Users::paginate(10),
+            'data'=> $user->paginate(10),
             'data_role'=> Role::all()
         ]);
     }
@@ -26,6 +37,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('superadmin');
         $validatedData = $request->validate([
             'name' => 'required|string|min:3',
             'username' => 'required|string|max:255|min:3|unique:users',
@@ -43,6 +55,7 @@ class UserController extends Controller
 
     public function show($id)
     {
+        $this->authorize('superadmin');
         $user = Users::findOrFail($id);
 
         return view('users.show', compact('user'));
@@ -50,6 +63,7 @@ class UserController extends Controller
 
      public function edit($id)
     {
+        $this->authorize('superadmin');
         $user = Users::findOrFail($id);
 
         return view('users.edit', compact('user'));
@@ -57,6 +71,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('superadmin');
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255',
@@ -79,9 +94,14 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = Users::findOrFail($id);
-        $user->delete();
+        $this->authorize('superadmin');
+        try {
+            $user = Users::findOrFail($id);
+            $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+            return redirect('/users')->with('success', 'User deleted successfully.');
+        }catch (ModelNotFoundException $e){
+            return redirect('/users')->with(['error' => 'Data not found']);
+         }
     }
 }
