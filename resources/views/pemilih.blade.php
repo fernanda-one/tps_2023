@@ -149,7 +149,7 @@
                                     <p class="ml-2">InActive</p>
                                 @elseif($voter->status == 'pending')
                                     <div class="bg-yellow-400 rounded-full w-2 h-2"></div>
-                                    <p class="ml-2">InActive</p>
+                                    <p class="ml-2">Pending</p>
                                 @endif
                             </div>
                         </td>

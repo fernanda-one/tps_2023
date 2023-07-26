@@ -11,6 +11,11 @@ class Pemilih extends Model
         'id'
     ];
 
+    public function users()
+    {
+        return $this->belongsTo(Users::class, 'created_by', 'id');
+    }
+
     public function createdByUser()
     {
         return $this->belongsTo(Users::class, 'created_by');

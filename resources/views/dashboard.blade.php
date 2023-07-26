@@ -105,7 +105,7 @@
                             {{ $value->keterangan }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $value->created_by }}
+                            {{ $value->users->name }}
                         </td>
                         <td class="px-6 py-4">
 
