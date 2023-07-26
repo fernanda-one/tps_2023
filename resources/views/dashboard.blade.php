@@ -14,6 +14,16 @@
     </header>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-[35px]">
+        @if ($message = session('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400 text-center" role="alert">
+            <span class="font-medium">{{ $message }}</span>
+        </div>
+        @elseif ($message = session('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-gray-800 dark:text-red-400 text-center" role="alert">
+            <span class="font-medium">{{ $message }}</span>
+        </div>
+        @endif
+
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -114,12 +124,16 @@
                                         </button>
                                         <div class="p-10 text-center">
                                             <div class="flex justify-between">
-                                                <button data-modal-hide="popup-modal" type="button" class="w-full text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm  items-center px-5 py-2.5 text-center mr-2">
-                                                    Reject
-                                                </button>
-                                                <button data-modal-hide="popup-modal" type="button" class="w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center mr-2">
-                                                    Approve
-                                                </button>
+                                                <a href="/dashboard-edit/{{$value->id}}/?status=rejected" class="w-full text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm  items-center px-5 py-2.5 text-center mr-2">
+                                                    <button data-modal-hide="popup-modal" type="button">
+                                                        Reject
+                                                    </button>
+                                                </a>
+                                                <a href="/dashboard-edit/{{$value->id}}/?status=approved" class="w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm items-center px-5 py-2.5 text-center mr-2">
+                                                    <button data-modal-hide="popup-modal" type="button">
+                                                            Approve
+                                                    </button>
+                                                </a>
                                             </div>
                                             <button data-modal-hide="popup-modal" type="button" class="w-full mt-[21px] text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                 cancel
@@ -128,7 +142,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </td>
                     </tr>
                 @endforeach

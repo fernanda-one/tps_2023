@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pemilih;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -23,5 +24,22 @@ class DashboardController extends Controller
         return view('dashboard', [
             'data' => $pemilih->paginate(6)
         ]);
+    }
+
+    public function updateStatus(Request $request, $id) {
+        $pemilih = Pemilih::find($id);
+        if (!$pemilih) {
+            return redirect('/dashboard')->with(['error' => 'Data not found']);
+        }
+
+        $pemilih->update([
+            'status' => $request->input('status'),
+        ]);
+
+        if ($pemilih) {
+            return redirect('/dashboard')->with(['success' => 'Data update successfully']);
+        } else {
+            return redirect('/dashboard')->with(['error' => 'Failed to update']);
+        }
     }
 }

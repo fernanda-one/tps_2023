@@ -25,6 +25,7 @@ Route::post('/login',[AuthController::class, 'auth']);
 Route::get('/logout',[AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard-edit/{id}', [DashboardController::class, 'updateStatus']);
 
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/create-user',[UserController::class,'store']);
