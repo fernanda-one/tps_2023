@@ -8,9 +8,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $pemilih = Pemilih::latest()
-            ->with('users')
-            ->where('status', 'pending');
+        $pemilih = Pemilih::with('users');
 
         $search = \request('search') ?? '';
 
@@ -24,6 +22,13 @@ class DashboardController extends Controller
                 ->orWhere('lokasi_tps', 'like', '%' . $search . '%')
                 ->orWhere('keterangan', 'like', '%' . $search . '%');
         }
+
+        $pemilih->orderByRaw("CASE
+            WHEN status = 'pending' THEN 1
+            WHEN status = 'approved' THEN 2
+            WHEN status = 'rejected' THEN 3
+            ELSE 4
+        END");
 
         return view('dashboard', [
             'data' => $pemilih->paginate(6)
