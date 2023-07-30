@@ -34,4 +34,4 @@ Route::delete('/users/delete/{id}',[UserController::class,'destroy'])->middlewar
 
 Route::get('/pemilih', [PemilihController::class, 'index'])->middleware('auth');
 Route::post('/pemilih-tambah', [PemilihController::class, 'store'])->middleware('auth');
-Route::post('/pemilih-edit/{id}', [PemilihController::class, 'edit'])->middleware('auth');
+Route::put('/pemilih-edit/{id}', [PemilihController::class, 'edit'])->middleware('auth');
