@@ -10,9 +10,7 @@ class DashboardController extends Controller
     {
         $this->authorize('admin');
         $pemilih = Pemilih::latest()
-            ->with('users')
-            ->where('status', 'pending');
-
+            ->with('users');
         $search = \request('search') ?? '';
 
         if ($search != "") {
