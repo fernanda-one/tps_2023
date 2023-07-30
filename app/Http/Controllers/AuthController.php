@@ -16,11 +16,15 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
+
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            if (Auth::user()->role_id === 3){
+                return redirect()->intended('/pemilih');
+            }
             return redirect()->intended('/dashboard');
         }
-        return back()->with('loginError', 'Login failed!');
+        return back()->with('error', 'Login failed!');
     }
 
     public function logout()

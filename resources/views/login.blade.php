@@ -30,13 +30,15 @@
         <p class="flex w-auto flex-col text-black font-bold mt-14 text-banner text-center lg:text-left md:text-center">
             RELASI <br>Relawan Ahmad Syukri
         </p>
-
         <div class="flex justify-center md:flex md:justify-center lg:justify-start">
             <form class="py-48 w-full poppins-font text-2xl" action="/login" method="post">
                 @csrf
                 <div class="relative z-0 w-full mb-6 group ">
                     <label class=" font-semibold" for="username">Username</label>
                     <input type="text" name="username" id="username" class="block py-2.5 px-0 w-full text-sm text-black border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Masukkan Username Anda" required />
+                    @if(session('error'))
+                        <p class=" text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> Username atau password salah!</p>
+                    @endif
                 </div>
                 <div class="relative z-0 w-full mb-6  group">
                     <label class=" font-semibold " for="password">Kata Sandi</label>

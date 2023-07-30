@@ -15,7 +15,7 @@ class PemilihController extends Controller
      */
     public function index()
     {
-        $this->authorize('superadmin');
+        $this->authorize('enumerator');
         $pemilih = Pemilih::latest();
         $search = \request('search') ?? '';
         if ($search != "") {
@@ -36,7 +36,7 @@ class PemilihController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('superadmin');
+        $this->authorize('enumerator');
         $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:17',
@@ -74,7 +74,7 @@ class PemilihController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $this->authorize('superadmin');
+        $this->authorize('enumerator');
         $pemilih = Pemilih::findOrFail($id);
         if ($pemilih) {
             $request->validate([

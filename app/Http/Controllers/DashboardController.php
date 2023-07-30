@@ -8,7 +8,10 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $pemilih = Pemilih::with('users');
+        $this->authorize('admin');
+        $pemilih = Pemilih::latest()
+            ->with('users')
+            ->where('status', 'pending');
 
         $search = \request('search') ?? '';
 
@@ -36,6 +39,7 @@ class DashboardController extends Controller
     }
 
     public function updateStatus(Request $request, $id) {
+        $this->authorize('admin');
         $pemilih = Pemilih::find($id);
         if (!$pemilih) {
             return redirect('/dashboard')->with(['error' => 'Data not found']);
