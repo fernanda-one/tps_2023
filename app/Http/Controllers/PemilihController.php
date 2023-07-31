@@ -39,14 +39,14 @@ class PemilihController extends Controller
         $this->authorize('enumerator');
         $request->validate([
             'name' => 'required|max:255',
-            'nik' => 'required|max:17',
+            'nik' => 'required|max:16|min:16',
             'alamat' => 'required|max:255',
-            'rt' => 'required|max:10',
-            'rw' => 'required|max:10',
+            'rt' => 'required|max:11',
+            'rw' => 'required|max:11',
             'lokasi_tps' => 'required|string|max:255',
             'kelurahan' => 'required|max:255',
             'kecamatan' => 'required|max:255',
-            'phone_number' => 'required|max:15',
+            'phone_number' => 'required|max:15|min:11',
             'keterangan' => 'required|max:255',
         ]);
 
@@ -79,14 +79,14 @@ class PemilihController extends Controller
         if ($pemilih) {
             $request->validate([
                 'name' => 'required|max:255',
-                'nik' => 'required|max:17',
+                'nik' => 'required|max:16|min:16',
                 'alamat' => 'required|max:255',
-                'rt' => 'required|max:10',
-                'rw' => 'required|max:10',
+                'rt' => 'required|max:11',
+                'rw' => 'required|max:11',
                 'lokasi_tps' => 'required|string|max:255',
                 'kelurahan' => 'required|max:255',
                 'kecamatan' => 'required|max:255',
-                'phone_number' => 'required|max:15',
+                'phone_number' => 'required|max:15|min:11',
                 'keterangan' => 'required|max:255',
             ]);
 

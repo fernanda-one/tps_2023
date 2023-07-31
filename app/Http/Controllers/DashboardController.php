@@ -9,8 +9,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $this->authorize('admin');
-        $pemilih = Pemilih::latest()
-            ->with('users');
+        $pemilih = Pemilih::with('users');
         $search = \request('search') ?? '';
 
         if ($search != "") {
@@ -24,12 +23,12 @@ class DashboardController extends Controller
                 ->orWhere('keterangan', 'like', '%' . $search . '%');
         }
 
-        $pemilih->orderByRaw("CASE
+        $pemilih = $pemilih->orderByRaw("CASE
             WHEN status = 'pending' THEN 1
             WHEN status = 'approved' THEN 2
             WHEN status = 'rejected' THEN 3
             ELSE 4
-        END");
+        END")->orderByDesc('created_at');
 
         return view('dashboard', [
             'data' => $pemilih->paginate(6)
