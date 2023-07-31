@@ -88,6 +88,7 @@ class PemilihController extends Controller
                 'kecamatan' => 'required|max:255',
                 'phone_number' => 'required|max:15|min:11',
                 'keterangan' => 'required|max:255',
+                'status' => 'required',
             ]);
 
             $pemilih->update($request->all());
