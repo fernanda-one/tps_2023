@@ -27,21 +27,21 @@
         <div class="flex justify-center md:justify-center lg:justify-start">
             <img src="assets/LOGO_KPU_RI.png" alt="logo">
         </div>
-        <p class="flex w-auto flex-col text-black font-bold mt-14 text-banner text-center lg:text-left md:text-center">
+        <p class="flex w-auto flex-col text-black font-bold mt-10 2xl:text-5xl xl:text-4xl lg:text-3xl text-2xl text-center lg:text-left md:text-center">
             RELASI <br>Relawan Ahmad Syukri
         </p>
-        <div class="flex justify-center md:flex md:justify-center lg:justify-start">
-            <form class="py-48 w-full poppins-font text-2xl" action="/login" method="post">
+        <div class="flex justify-center md:flex md:justify-center  2xl:mx-0 xl:mx-0 lg:mx-0 md:mx-5 sm:mx-5 mx-5 lg:justify-start">
+            <form class="2xl:py-[200px] xl:py-[80px] lg:py-[100px] py-[80px] w-full poppins-font text-2xl" action="/login" method="post">
                 @csrf
                 <div class="relative z-0 w-full mb-6 group ">
-                    <label class=" font-semibold" for="username">Username</label>
+                    <label class="font-semibold md:text-lg text-sm" for="username">Username</label>
                     <input type="text" name="username" id="username" class="block py-2.5 px-0 w-full text-sm text-black border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Masukkan Username Anda" required />
                     @if(session('error'))
                         <p class=" text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> Username atau password salah!</p>
                     @endif
                 </div>
                 <div class="relative z-0 w-full mb-6  group">
-                    <label class=" font-semibold " for="password">Kata Sandi</label>
+                    <label class="font-semibold md:text-lg text-sm" for="password">Kata Sandi</label>
                     <input type="password" name="password" id="password" class="block py-2.5 px-0 w-full text-sm text-black border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Masukkan Kata Sandi Anda" required />
                 </div>
 
