@@ -1046,6 +1046,12 @@ input:checked + .toggle-bg {
 .top-5 {
   top: 1.25rem;
 }
+.top-2 {
+  top: 0.5rem;
+}
+.top-2\.5 {
+  top: 0.625rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -1107,6 +1113,10 @@ input:checked + .toggle-bg {
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
+}
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 .mb-1 {
   margin-bottom: 0.25rem;
@@ -1173,6 +1183,9 @@ input:checked + .toggle-bg {
 }
 .mt-10 {
   margin-top: 2.5rem;
+}
+.mt-\[10px\] {
+  margin-top: 10px;
 }
 .block {
   display: block;
@@ -1299,6 +1312,9 @@ input:checked + .toggle-bg {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-1 {
+  width: 0.25rem;
 }
 .max-w-md {
   max-width: 28rem;
@@ -1620,6 +1636,9 @@ input:checked + .toggle-bg {
 }
 .p-6 {
   padding: 1.5rem;
+}
+.p-0 {
+  padding: 0px;
 }
 .px-0 {
   padding-left: 0px;
@@ -2258,6 +2277,14 @@ input:checked + .toggle-bg {
     margin-left: 0.5rem;
   }
 
+  .md\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .md\:ml-64 {
+    margin-left: 16rem;
+  }
+
   .md\:flex {
     display: flex;
   }
@@ -2268,6 +2295,11 @@ input:checked + .toggle-bg {
 
   .md\:w-\[40\%\] {
     width: 40%;
+  }
+
+  .md\:translate-x-0 {
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .md\:grid-cols-1 {
@@ -2284,6 +2316,10 @@ input:checked + .toggle-bg {
 
   .md\:justify-center {
     justify-content: center;
+  }
+
+  .md\:justify-between {
+    justify-content: space-between;
   }
 
   .md\:gap-6 {

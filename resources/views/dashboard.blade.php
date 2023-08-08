@@ -4,7 +4,7 @@
 @section('judul2', 'Dashboard')
 
 @section('body')
-    <header class="flex justify-between">
+    <header class="lg:flex lg:justify-between">
         <p class="text-2xl">All Users</p>
         <form action="/dashboard" method="get" enctype="multipart/form-data">
             <div class="relative">
