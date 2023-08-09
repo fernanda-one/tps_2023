@@ -16,17 +16,17 @@ class Pemilih extends Migration
         Schema::create('pemilih', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('phone_number')->nullable();
-            $table->integer('nik')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->bigInteger('nik')->nullable();
             $table->string('alamat')->nullable();
-            $table->integer('rt')->nullable();
-            $table->integer('rw')->nullable();
+            $table->bigInteger('rt')->nullable();
+            $table->bigInteger('rw')->nullable();
             $table->string('kelurahan')->nullable();
             $table->string('kecamatan')->nullable();
             $table->string('lokasi_tps')->nullable();
             $table->string('keterangan')->nullable();
             $table->string('status')->nullable();
-            $table->integer('created_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
             $table->timestamps();
         });
     }
